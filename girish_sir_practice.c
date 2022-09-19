@@ -1,6 +1,6 @@
 #include<stdio.h>
 int main(){
-    int a=10,b;
-    b=!a;
-    printf("%d",b);
+    int i=1;
+    while(++i<=5)
+    printf("%d ",i++);
 }
