@@ -1,24 +1,29 @@
-#include<stdio.h>
-int main(){
-    int n;
-    scanf("%d",&n);
-    int a[n];
-    for(int i=0;i<n;i++){
-        scanf("%d",&a[i]);
-    }
-    int k;
-    scanf("%d",&k);
-    for(int i=0;i<n;i++){
-        int max=i;
-        for(int j=i+1;i<n;j++){
-            if(a[max]<a[j]){
-                max=j;
-            }
-            int temp=a[max];
-            a[max]=a[i];
-            a[i]=temp;
-        }
-        printf("%d",a[k]);
-    }
-    return 0;
+// C code for k largest elements in an array
+#include <stdio.h>
+#include <stdlib.h>
+
+// Compare function for qsort
+int cmpfunc(const void* a, const void* b)
+{
+	return (*(int*)b - *(int*)a);
 }
+
+void kLargest(int arr[], int n, int k)
+{
+	// Sort the given array arr in reverse order.
+	qsort(arr, n, sizeof(int), cmpfunc);
+	// Print the first kth largest elements
+	for (int i = 0; i < k; i++)
+		printf("%d ", arr[i]);
+}
+
+// driver program
+int main()
+{
+	int arr[] = { 1, 23, 12, 9, 30, 2, 50 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int k = 3;
+	kLargest(arr, n, k);
+}
+
+// This code is contributed by Aditya Kumar (adityakumar129)

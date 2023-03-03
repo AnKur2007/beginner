@@ -1,24 +1,32 @@
-#include<stdio.h>
-#include<stdlib.h>
-int mi(int a[],int n,int s,int l){
-    int mid=s+(l-s)/2;
-    if(a[mid]<a[mid+1] && a[mid]>a[mid-1]){
-        return mi(a,n,s,mid-1);
+#include <stdio.h>
+int search(int arr[], int l, int h, int key)
+{
+	if (l > h)
+		return -1;
+
+	int mid = (l + h) / 2;
+	if (arr[mid] == key)
+		return mid;
+	if (arr[l] <= arr[mid]) {
+		if (key >= arr[l] && key <= arr[mid])
+			return search(arr, l, mid - 1, key);
+		return search(arr, mid + 1, h, key);
     }
-    else if(a[mid]>a[mid+1]){
-        return mid+1;
-    }
-    else if(a[mid]<a[mid-1]){
-        return mid-1;
-    }
+	if (key >= arr[mid] && key <= arr[h])
+		return search(arr, mid + 1, h, key);
+
+	return search(arr, l, mid - 1, key);
 }
-int main(){
-    int n;
-    scanf("%d",&n);
-    int a[n];
-    for(int i=0;i<n;i++){
-        scanf("%d",&a[i]);
-    }
-    int m=mi(a,n,0,n-1);
-    printf("%d",m);
+int main()
+{
+	int arr[] = { 4, 5, 6, 7, 8, 9, 1, 2, 3 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int key = 3;
+	int i = search(arr, 0, n - 1, key);
+
+	if (i != -1)
+		printf("Index: %d\n", i);
+	else
+		printf("Key not found");
 }
+
